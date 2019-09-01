@@ -45,14 +45,16 @@ end
 %% Compute Markov probability matrix 
     p  = sum(K,1)'; 
     K  = K ./ ((p*p') .^ alpha); 
-%%%%%%  itself probability diag = 0 
-%     K = K - diag( diag(K) );  
-    p  = sqrt(sum(K,1))'; 
-    K  = K ./ (p*p'); 
-    
 if( ~isempty(Y) ) 
     q  = sum(KK,2); 
     KK = KK./ ( (q*p').^ alpha ); 
+end     
+    
+%%%%%%  itself probability diag = 0 
+%     K = K - diag( diag(K) );  
+    p  = sqrt(sum(K,1))'; 
+    K  = K ./ (p*p');     
+if( ~isempty(Y) ) 
     q  = sqrt(sum(KK,2)); 
     KK = KK./ (q*p'); 
 end 
