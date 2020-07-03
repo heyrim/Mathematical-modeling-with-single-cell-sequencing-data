@@ -1,30 +1,33 @@
-function Compute_systemCoeff( ntest, uhmsts ) 
-global N1 
+function Compute_systemCoeff( ntestin, uhmsts ) 
+global N1 cRct cAdv cDth V2 V indSig cS ntest  
 
+ntest = ntestin; 
+if( nargin < 3 ) 
+    nAML = 0; 
+end 
+
+% Compute Reaction, Self_renewal_fraction, Logistic death, Advection 2  
 if( ntest == 0 ) 
-    
-    [cRct, cAdv, cDth, cA] = PrePocess_Nestorowa(uhmsts);
-    indSig = [3:6,8];
+    [cRct, cAdv, cDth, V, V2, indSig] = PrePocess_Nestorowa(uhmsts);
 
 elseif( ntest == 1 ) 
-
-    [cRct, cAdv, cDth, cA] = PrePocess_Paul(uhmsts);
-    indSig = [2,3,4,8,9];
+    [cRct, cAdv, cDth, V, V2, indSig] = PrePocess_Paul(uhmsts);
 
 end 
 
 
+%%% Assign Matrix for AML 
+Vaml = cell(1,2); 
+for n = 1:2; Vaml{n} = zeros( N1(1), N1(2) ); Vaml{n} = sparse( Vaml{n} ); end
+addcRct = zeros( N1(1), N1(2) ); addcRct = sparse( addcRct );
 
-cA(isnan(cA)) = 0;
-cAvec{1} = squeeze( cA(:,:,1) );
-cAvec{2} = squeeze( cA(:,:,2) );
+
+set_system_paramters;
 
 
-%%% coeff for AML 
-Vaml = cAvec;
-for n = 1:2; Vaml{n}(:) = 0; Vaml{n} = sparse( Vaml{n} ); end
 
-addcRct = zeros( N1(1), N1(2) ); addcRct(:) = 0; addcRct = sparse( addcRct );
 
 
 end 
+
+
