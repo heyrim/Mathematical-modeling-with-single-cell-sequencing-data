@@ -1,4 +1,4 @@
-function [cPmat, cAmat, cDth, cVhmsts, cVvec, indSig] = PrePocess_Nestorowa(uhmsts)  
+function [cPmat, cAmat, cDth, cVvec, indSig] = PrePocess_Nestorowa(uhmsts)  
 global xx yy 
 
 load( 'data/Nestorowa2016_scRNAseqData.mat' ) 
@@ -44,9 +44,6 @@ cAdata( (length(cAdata)+1):nzero ) = 1;
 cAmat = Compute_LocalAverage( dcwzero, cAdata, X, len ); 
 cAmat = interp2( X{1}', X{2}', cAmat', XX{1}', XX{2}', 'linear', 1 )'; 
 
-%% Compute Advection for homeostasis distribution 
-cVhmsts = Compute_V( uhmsts );
-
 
 %% Diffusion pseudotime  - direction of differentiation 
 %%%%% reference find_DPF_vector.m 
@@ -60,7 +57,6 @@ for n = 1:2
     cVvec{n} = interp2( X{1}', X{2}', cVmat(:,:,n)', XX{1}', XX{2}', 'linear', 0 )'; 
     cVvec{n}(isnan(cVvec{n})) = 0;
 end 
-
 
 %% logistic death term 
 uhmsts(uhmsts<=eps)=eps;

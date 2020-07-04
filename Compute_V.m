@@ -1,37 +1,3 @@
-function Compute_systemCoeff( ntestin, uhmsts, nAML ) 
-global N1 cRct cAdv cDth V2 V indSig cS ntest  
-
-ntest = ntestin; 
-if( nargin < 3 ) 
-    nAML = 0; 
-end 
-
-if( ntest == 0 ) 
-    [cRct, cAdv, cDth, V2, indSig] = PrePocess_Nestorowa(uhmsts);
-
-elseif( ntest == 1 ) 
-    [cRct, cAdv, cDth, V2, indSig] = PrePocess_Paul(uhmsts);
-
-end 
-
-
-%%% coeff for AML 
-Vaml = cell(1,2); 
-for n = 1:2; Vaml{n} = zeros( N1(1), N1(2) ); Vaml{n} = sparse( Vaml{n} ); end
-
-addcRct = zeros( N1(1), N1(2) ); addcRct = sparse( addcRct );
-
-
-set_system;
-
-% nCellSave(:,1) = Compute_cluster( nCell, ntest );
-% cS = 1-1/(1+exp( -(sum(nCellSave(indSig,1)) - barv)*cK ));
-
-[V] = Compute_V( uhmsts, ntest );
-
-
-end 
-
 
 function [V] = Compute_V( uSH, ntest )
 global cDiff N N1 dx
@@ -64,4 +30,3 @@ else   %% 2D
 end
 
 end
-

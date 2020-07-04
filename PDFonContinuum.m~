@@ -7,7 +7,7 @@
 %   nAML : choose AML condition 
 %        = INF - normal condition / integer number - AML condition at nAML 
 % 
-% Outputs: 
+% Outputs:
 
 function PDFonContinuum( N, ntest, nAML ) 
 
@@ -42,8 +42,8 @@ end
 
 uinit = BC_2Dsp( uinit );
 
-T = 5; dt = 0.001; Tstep = 1;
-Time_Integ_RK4( @Compute_du_2Dsp, @BC_2Dsp, uinit, T, dt, Tstep ); 
+T = 50; dt = 0.001; Tstep = 10;
+Time_Integ_RK4( @Compute_du_2Dsp, @BC_2Dsp, uinit, T, dt, Tstep ) 
 
 
 

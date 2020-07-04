@@ -1,4 +1,4 @@
-function  [cPmat, cAmat, cDth, cVhmsts, cVvec, indSig] = PrePocess_Paul(uhmsts) 
+function  [cPmat, cAmat, cDth, cVvec, indSig] = PrePocess_Paul(uhmsts) 
 global N xx yy 
 
 load( 'data/Paul2015_scRNAseqData.mat' );  
@@ -40,11 +40,6 @@ cAdata( (length(cAdata)+1):nzero ) = 1;
 %%%% Local average and interpolation 
 cAmat = Compute_LocalAverage( dcwzero, cAdata, X, len ); 
 cAmat = interp2( X{1}', X{2}', cAmat', XX{1}', XX{2}', 'linear', 1 )'; 
-
-
-%% Compute Advection for homeostasis distribution 
-cVhmsts = Compute_V( uhmsts );
-
 
 
 %% Diffusion pseudotime  - direction of differentiation 
