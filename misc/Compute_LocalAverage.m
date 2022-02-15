@@ -8,6 +8,7 @@
 function cmat = Compute_LocalAverage( xdata, cdata, X, len ) 
 
 cmat = zeros( size(X{1},1), size(X{1},2) ); 
+
 for n = 1:size(X{1},1)
     for m = 1:size(X{1},2) 
         dd = sqrt( sum( bsxfun(@minus, xdata ,[X{1}(n,m),X{2}(n,m)]).^2, 2 ) ); 

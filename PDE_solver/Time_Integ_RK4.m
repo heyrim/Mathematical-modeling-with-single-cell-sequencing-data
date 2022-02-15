@@ -1,30 +1,20 @@
-<<<<<<< HEAD
-function uSave = Time_Integ_RK4( Compute_du, BC, uinit, T, dt, Tstep ) 
-=======
-function Time_Integ_RK4( Compute_du, BC, uinit, T, dt, Tstep ) 
->>>>>>> 1f502225be344a200951a04097105902e01a339e
+function [uSave, nCellSave] = Time_Integ_RK4( Compute_du, BC, uinit, T, dt, Tstep, Compute_cluster ) 
 global N cAdv dx cDiff V indSig cS cK barv 
 
-Vmax = max( max(max(V{1})), max(max(V{2})) );
-if( max(dx)/max(max(cAdv))/2 < dt ||  max(dx)/max(Vmax)/2 < dt || prod(dx)/max(cDiff)/2 < dt )
-    disp( 'reduce dt' );
-end
+%%%% uncomment this to check CFL condition 
+% Vmax = max( max(max(V{1})), max(max(V{2})) );
+% if( max(dx)/max(max(cAdv))/2 < dt ||  max(dx)/max(Vmax)/2 < dt || prod(dx)/max(cDiff)/2 < dt )
+%     disp( 'reduce dt' );
+% end
 
 t = 0; 
 nCell = uinit; 
 
-nTotCell(1) = sum(sum(nCell))*prod(dx); %dxn*dxm;
+% nTotCell(1) = sum(sum(nCell))*prod(dx); %dxn*dxm;
 nCellSave(:,1) = Compute_cluster( nCell );
-<<<<<<< HEAD
 uSave(:,:,1) = nCell; 
-=======
 
-figure; hold on;
-subplot( 1, 5, 1 ); imagesco( nCell' ); title( strcat( 't=', num2str(0) ) );
->>>>>>> 1f502225be344a200951a04097105902e01a339e
-
-cSsave(1) = cS;
-
+cS = 1/(1+exp( (sum(nCellSave(indSig,1)) - barv)*cK )); 
 
 Tstart = tic; 
 for nT = 1:(T/Tstep)
@@ -58,31 +48,10 @@ for nT = 1:(T/Tstep)
         
     end % end of time inner loop
     
-<<<<<<< HEAD
-    nTotCell(nT+1) = sum(sum(nCell))*prod(dx); %dxn*dxm;
+%     nTotCell(nT+1) = sum(sum(nCell))*prod(dx); %dxn*dxm;
     nCellSave(:,nT+1) = Compute_cluster( nCell );
     uSave(:,:,nT+1) = nCell; 
-   
-=======
-    nstep = 1;
-    if( mod(Tstep*nT, nstep ) == 0 )
-        if(  N(2) == 1 ); plot( xx, nCell );
-%         else; subplot( 3, 5, min(Tstep*nT/nstep + 1, 15)); imagesco( nCell' );
-        else; subplot( 1, 5, min(nT + 1, 5)); imagesco( nCell' );
-            title( strcat( 't=', num2str(nT*Tstep) ) ); end
-    end
-
-    nTotCell(nT+1) = sum(sum(nCell))*prod(dx); %dxn*dxm;
-    nCellSave(:,nT+1) = Compute_cluster( nCell );
-    
->>>>>>> 1f502225be344a200951a04097105902e01a339e
-    cSsave(nT+1) = cS;
-    
-    %   if( Tstep*nT == 10 )
-    %     Update_AML( nCell, ntest ) ;
-    %
-    %   end
-    
+        
 end
 
 toc( Tstart );
