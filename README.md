@@ -7,10 +7,12 @@ doi: https://doi.org/10.1101/710640
 
 Instructions: 
 
-Run PDFonContinuum.m for the cell state model on a multi-dimensional (2D) space 
+Run    PDFonContinuum.m    for the cell state model on a multi-dimensional (2D) space 
 
-Run PDFonGraph.m for the cell state model on a graph. 
+Run    PDFonGraph.m     for the cell state model on a graph. 
 
+
+Remark: 
 
 .ipynb Notebooks are in progress. 
 
