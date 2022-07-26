@@ -1,4 +1,4 @@
-% PDF model of HSC differentiation on continuum cell state space 
+% PDE model of HSC differentiation on continuum cell state space 
 
 % Inputs:
 %   T: final time 
@@ -9,7 +9,7 @@
 % 
 % Outputs: 
 
-function PDFonContinuum( N, ntest ) 
+function PDEonContinuum( N, ntest ) 
 
 close all 
 clear all 
