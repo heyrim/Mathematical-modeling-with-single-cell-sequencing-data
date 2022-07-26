@@ -1,5 +1,5 @@
-%% PDF on graph with multiple end nodes 
-function PDFonGraph( Tin, Nin, nfig, ntestin )
+%% PDE on graph with multiple end nodes 
+function PDEonGraph( Tin, Nin, nfig, ntestin )
 
 close all 
 clear all 
